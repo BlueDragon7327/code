@@ -2,7 +2,7 @@ import os
 from groq import Groq
 
 print("Personal Console AI")
-history = []
+history = [{"role": "system", "content": ""}]  # Add a system prompt here
 
 while True:
     # Request the user's prompt
@@ -17,7 +17,7 @@ while True:
         history.append({"role": "user", "content": prompt})
 
         client = Groq(
-            api_key=("api_key_here")
+            api_key="api_key_here"
         )
 
         # Create the chat completion request with the entire history
