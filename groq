@@ -1,0 +1,36 @@
+import os
+from groq import Groq
+
+print("Personal Console AI")
+history = []
+
+while True:
+    # Request the user's prompt
+    prompt = input("Enter prompt: ")
+
+    if prompt == "":
+        print("Prompt cannot be blank.")
+    elif prompt.lower() == "exit":
+        break  # Exit the loop
+    else:
+        # Append the user prompt to the history
+        history.append({"role": "user", "content": prompt})
+
+        client = Groq(
+            api_key=("api_key_here")
+        )
+
+        # Create the chat completion request with the entire history
+        chat_completion = client.chat.completions.create(
+            messages=history,
+            model="llama3-8b-8192",
+        )
+
+        # Retrieve and print the assistant's response
+        response = chat_completion.choices[0].message.content
+        print(response)
+
+        # Append the assistant's response to the history
+        history.append({"role": "assistant", "content": response})
+
+        print("\n")  # Ensure the next prompt starts on a new line
